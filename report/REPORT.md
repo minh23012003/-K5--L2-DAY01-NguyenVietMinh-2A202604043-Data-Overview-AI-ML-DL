@@ -84,9 +84,8 @@ Lab hôm nay chỉ **xem prediction**. Chuỗi dưới đây là vòng đời pr
 | Tác vụ | Ground truth trông như thế nào? (đơn vị nhãn) | Lỗi hoặc chỗ khó quyết định bạn thấy trên ảnh/JSON | Annotator làm gì? | Reviewer xem gì? |
 | --- | --- | --- | --- | --- |
 | Phân loại ảnh | Một lớp cho cả ảnh theo taxonomy ImageNet-1K (ghi đủ `class_id`, `class_name`, `taxonomy_name`) | Ảnh `traffic` nhiều xe buýt nhưng top-1 là `cab` 0.51; taxonomy không có lớp "traffic" (prediction ≠ GT) | Đọc guideline, chọn đúng 1 lớp theo chủ thể rõ nhất; không có lớp phù hợp thì escalate | Đúng taxonomy, đúng cấp ảnh, không chép score thành nhãn |
-| Phát hiện vật thể | Mỗi vật: class + box `bbox_xyxy` | Ảnh `kitchen`: hạ ngưỡng ra thêm box nhiễu (`bowl` 0.38), `person` 0.61 chỉ là bàn tay bị cắt mép | Vẽ box sát phần nhìn thấy, đủ vật theo guideline; ca mơ hồ thì escalate | Box có sát không, thiếu/thừa/trùng vật, ca bị che khuất |
-| Instance segmentation | Mỗi instance: class + polygon + `instance_id` | `kitchen-010` (`bowl` 0.372): các bát/khay chạm nhau, bị bàn che nên biên khó xác định | Vẽ polygon bám biên từng instance, mỗi vật một instance | Mask có lấn sang vật khác không, đủ instance cùng lớp, `instance_id` tách đúng |
-
+| Phát hiện vật thể | Mỗi vật: class + box `bbox_xyxy` | Ảnh `kitchen`: ngưỡng 0.60 có 6 box, hạ xuống 0.20 thành 17 box, thêm các box điểm thấp (`spoon`, `potted plant`, `bottle`, `dining table`); `person` 0.61 chỉ thấy một phần người ở mép trái | Vẽ box sát phần nhìn thấy, đủ vật theo guideline; ca mơ hồ thì escalate | Box có sát không, thiếu/thừa/trùng vật, ca bị che khuất |
+| Instance segmentation | Mỗi instance: class + polygon + `instance_id` | `kitchen-010` (`bowl` 0.372): vật nhỏ ~28×16 px, điểm sát ngưỡng 0.35, cùng vật detection chấm 0.70 nên khó quyết định giữ hay bỏ | Vẽ polygon bám biên từng instance, mỗi vật một instance | Mask có lấn sang vật khác không, đủ instance cùng lớp, `instance_id` tách đúng |
 ## 5. An toàn dữ liệu
 
 1. Quy tắc bảo vệ dữ liệu của bạn cho bài lab này là gì? Chỉ dùng ba ảnh COCO công khai mà notebook đã cố định và kiểm tra checksum; không dùng, tải lên hay chia sẻ dữ liệu nào khác
