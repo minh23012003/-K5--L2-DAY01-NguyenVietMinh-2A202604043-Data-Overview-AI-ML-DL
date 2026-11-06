@@ -71,7 +71,7 @@ Chỉ dùng ảnh `sample_id = kitchen`. Chọn **một** record.
 2. So với box, polygon cho thêm thông tin về đường biên thật của vật (12 điểm, đáy bo tròn), nên biết được hình dạng và diện tích thực, loại bỏ phần nền thừa.
 3. `instance_id`  dùng để phân biệt từng đối tượng riêng trong cùng một ảnh, mỗi vật có một mask riêng. Nó không phải class ID: class_id (45) là mã của lớp "bowl", mọi cái bát đều chung mã này. Nó cũng không phải tracking ID: tracking ID theo dõi một vật qua nhiều khung hình video, còn instance_id chỉ có nghĩa trong một ảnh tĩnh.
 4.  **quy tắc vẽ biên mask** : Mỗi vật một polygon khép kín, đi sát theo đường biên của phần nhìn thấy của vật đó, không thừa nền, không cắt mất phần vật và không lấn sang vật khác chạm bên cạnh.
-5. Trên ảnh `kitchen`, chỉ ra **một** chỗ biên mờ / hai vật chạm nhau / bị che. Trên ảnh kitchen, các bát và khay bột ở góc dưới bên trái chồng lên nhau, bị bàn che một phần. Dùng guideline vì ca này lặp lại ở nhiều ảnh: mask chỉ phủ phần nhìn thấy, ranh giới vẽ theo đường tiếp xúc, mỗi vật một instance. Chỉ escalate khi không rõ là một hay hai vật.
+5. Trên ảnh `kitchen`, chỉ ra **một** chỗ biên mờ / hai vật chạm nhau / bị che: Các bát và khay bột ở góc dưới bên trái chồng lên nhau, bị bàn che một phần. Dùng guideline vì ca này lặp lại ở nhiều ảnh: mask chỉ phủ phần nhìn thấy, ranh giới vẽ theo đường tiếp xúc, mỗi vật một instance. Chỉ escalate khi không rõ là một hay hai vật.
 
 ## 4. Vòng đời và kiểm tra chất lượng
 
